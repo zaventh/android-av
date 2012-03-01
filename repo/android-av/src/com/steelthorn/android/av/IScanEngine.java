@@ -8,7 +8,8 @@ package com.steelthorn.android.av;
  */
 public interface IScanEngine
 {
-	IScanResult performScan(IScanContext ctx);
+	ScanResult scan(IScanContext ctx);
 	
-	void performScanAsync(IScanContext ctx, IScanCallback callback);
+	Boolean scanTarget(IScanTarget target);
+	//void scanAsync(IScanContext ctx, IScanCallback callback);
 }

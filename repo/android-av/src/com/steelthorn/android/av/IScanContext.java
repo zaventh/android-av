@@ -1,10 +1,12 @@
 package com.steelthorn.android.av;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import android.content.pm.PackageInfo;
+import android.content.Context;
 
 public interface IScanContext
 {
-	ArrayList<PackageInfo> getSources();
+	Context getContext();
+	
+	List<IScanTarget> getTargets();
 }

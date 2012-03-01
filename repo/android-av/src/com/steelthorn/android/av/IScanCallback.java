@@ -2,7 +2,7 @@ package com.steelthorn.android.av;
 
 public interface IScanCallback
 {
-	void onScanCompleted(IScanResult result);
+	void onScanCompleted(ScanResult result);
 	
 	void onScanFailed(Exception error);
 }
