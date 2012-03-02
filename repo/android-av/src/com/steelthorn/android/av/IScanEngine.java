@@ -8,8 +8,8 @@ package com.steelthorn.android.av;
  */
 public interface IScanEngine
 {
-	ScanResult scan(IScanContext ctx);
+	ScanResult scan(ScanContext ctx);
 	
-	Boolean scanTarget(IScanTarget target);
+	ThreatInfo scanTarget(IScanTarget target);
 	//void scanAsync(IScanContext ctx, IScanCallback callback);
 }

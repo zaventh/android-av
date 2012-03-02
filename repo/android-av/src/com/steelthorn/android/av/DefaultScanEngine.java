@@ -6,22 +6,43 @@ import java.util.List;
 class DefaultScanEngine extends ScanEngine
 {
 
-	public ScanResult scan(IScanContext ctx)
+	public ScanResult scan(ScanContext ctx)
 	{
-		//IScanResult
-		return null;
+		ScanResult result = new ScanResult();
+
+		for (ITargetSource source : ctx.getSources())
+		{
+			if (ctx.getListener() != null)
+				ctx.getListener().onTargetSourceSwitch(source);
+
+			for (IScanTarget target : source)
+			{
+				if (ctx.getListener() != null)
+					ctx.getListener().onTargetScanBegin(target);
+
+				ThreatInfo ti = scanTarget(target);
+
+				if (ti != null)
+					result.addMatchFound(ti);
+
+				if (ctx.getListener() != null)
+					ctx.getListener().onTargetScanComplete(target, ti);
+			}
+		}
+
+		return result;
 	}
 
-	public Boolean scanTarget(IScanTarget target)
+	public ThreatInfo scanTarget(IScanTarget target)
 	{
 		List<IScanDefinition> defs = Util.getDevDefinitions();
-		
+
 		for (IScanDefinition def : defs)
 		{
 			if (Arrays.equals(def.getHashValue(), target.getHashValue()))
-				return true;
+				return new ThreatInfo(target, def);
 		}
-		
-		return false;
+
+		return null;
 	}
 }

@@ -10,6 +10,7 @@ import com.steelthorn.android.av.IScanTarget;
 import com.steelthorn.android.av.ScanEngine;
 import com.steelthorn.android.av.ScanManager;
 import com.steelthorn.android.av.ScanResult;
+import com.steelthorn.android.av.ThreatInfo;
 
 public class StandardTests extends AndroidTestCase {
 
@@ -30,15 +31,17 @@ public class StandardTests extends AndroidTestCase {
 			}
 		};
 		
-		Boolean result = ScanEngine.getDefaultScanEngine().scanTarget(target);
+		ThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target);
 		
-		Assert.assertTrue(result);
+		Assert.assertNotNull(ti);
+		
+		
 	}
 	
 	@Test
 	public void testBasicScan() throws Exception
 	{
-		ScanResult result = new ScanManager().performBasicScan(getContext());
+		ScanResult result = new ScanManager().performBasicScan(getContext(), null);
 		
 		Assert.assertNotNull(result);
 	}

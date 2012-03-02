@@ -4,14 +4,12 @@ import android.content.Context;
 
 public class ScanManager
 {
-	public ScanResult performBasicScan(Context appCtx)
+	public ScanResult performBasicScan(Context appCtx, IScanListener listener)
 	{
 		ScanEngine engine = new DefaultScanEngine();
 		
-		IScanContext ctx = new InstalledScanContext(appCtx);
+		ScanContext ctx = new BasicScanContext(appCtx, listener);
 		
 		return engine.scan(ctx);
-		
-		
 	}
 }

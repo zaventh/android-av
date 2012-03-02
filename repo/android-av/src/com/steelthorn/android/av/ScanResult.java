@@ -4,7 +4,7 @@ import java.util.List;
 
 public class ScanResult
 {
-	private List<IScanTarget> _matchedTargets;
+	private List<ThreatInfo> _matchedTargets;
 	
 	protected ScanResult()
 	{
@@ -16,7 +16,12 @@ public class ScanResult
 		return (_matchedTargets != null && _matchedTargets.size() > 0);
 	}
 	
-	public List<IScanTarget> getMatchedTargets()
+	protected void addMatchFound(ThreatInfo target)
+	{
+		_matchedTargets.add(target);
+	}
+	
+	public List<ThreatInfo> getMatchedTargets()
 	{
 		return _matchedTargets;
 	}
