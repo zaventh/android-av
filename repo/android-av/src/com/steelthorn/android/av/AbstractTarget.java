@@ -13,4 +13,10 @@ abstract class AbstractTarget<T> implements IScanTarget
 	{
 		return _target;
 	}
+	
+	@Override
+	public String toString()
+	{
+		return getName();
+	}
 }

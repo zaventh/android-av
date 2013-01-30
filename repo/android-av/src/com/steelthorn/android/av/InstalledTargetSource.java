@@ -30,5 +30,10 @@ public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 	{
 		return new PackageInfoTarget(rawTarget);
 	}
+
+	public String getName()
+	{
+		return "Installed applications";
+	}
 	
 }
