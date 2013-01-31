@@ -14,15 +14,20 @@ public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 	{
 		super(ctx);
 	}
-
-	@Override
-	protected Iterator<PackageInfo> getInternalIterator()
+	
+	protected List<PackageInfo> getPackages()
 	{
 		// TODO: Don't preload all packages... iterate
 		if (_packages == null)
 			_packages = Util.getInstalledPackages(getContext());
+		return _packages;
+	}
+
+	@Override
+	protected Iterator<PackageInfo> getInternalIterator()
+	{
 		
-		return _packages.iterator();
+		return getPackages().iterator();
 	}
 
 	@Override
@@ -34,6 +39,11 @@ public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 	public String getName()
 	{
 		return "Installed applications";
+	}
+
+	public int getTargetCount()
+	{
+		return getPackages().size();
 	}
 	
 }

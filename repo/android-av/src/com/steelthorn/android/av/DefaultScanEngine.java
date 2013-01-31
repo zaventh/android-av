@@ -10,6 +10,14 @@ class DefaultScanEngine extends ScanEngine
 	{
 		ScanResult result = new ScanResult();
 
+		//TODO: Possibly move this to the ScanContext
+		int totalCount = 0;
+		for (ITargetSource source : ctx.getSources())
+		{
+			totalCount += source.getTargetCount();
+		}
+		
+		int progressCount = 0;
 		for (ITargetSource source : ctx.getSources())
 		{
 			if (ctx.getListener() != null)
@@ -21,6 +29,11 @@ class DefaultScanEngine extends ScanEngine
 					ctx.getListener().onTargetScanBegin(target);
 
 				ThreatInfo ti = scanTarget(target);
+				
+				progressCount++;
+				
+				if (ctx.getListener() != null)
+					ctx.getListener().onScanProgress(progressCount / totalCount);
 
 				if (ti != null)
 					result.addMatchFound(ti);
@@ -42,8 +55,16 @@ class DefaultScanEngine extends ScanEngine
 
 		for (IScanDefinition def : defs)
 		{
-			if ((def.getDefinitionType() == target.getTargetType()) && Arrays.equals(def.getHashValue(), target.getHashValue()))
-				return new ThreatInfo(target, def);
+			if ((def.getDefinitionType() == target.getTargetType()))
+			{
+				for (IScanDefinitionCriteria crit : def.getCriterion())
+				{
+					if (Arrays.equals(crit.getHashValue(), target.getHashValue()))
+						return new ThreatInfo(target, def);
+				}
+				
+			}
+				
 		}
 
 		return null;

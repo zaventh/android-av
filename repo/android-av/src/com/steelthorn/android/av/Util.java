@@ -37,15 +37,33 @@ class Util
 				return DefinitionType.ANDROID_PACKAGE;
 			}
 
-			public long getSize()
+			public List<IScanDefinitionCriteria> getCriterion()
 			{
-				return 23;
-			}
+				List<IScanDefinitionCriteria> crit = new ArrayList<IScanDefinitionCriteria>();
+				crit.add(new IScanDefinitionCriteria()
+				{
+					
+					public long getMatchSize()
+					{
+						return 23;
+					}
+					
+					public byte[] getHashValue()
+					{
 
-			public byte[] getHashValue()
-			{
-				return Base64.decode("3YnpxrvKu5hZxi0m/FkpE+pUcwQ=", Base64.DEFAULT);
+							return Base64.decode("3YnpxrvKu5hZxi0m/FkpE+pUcwQ=", Base64.DEFAULT);
+	
+					}
+					
+					public double getMatchWeight()
+					{
+						return 1;
+					}
+				});
+				
+				return crit;
 			}
+			
 		});
 
 		return def;
