@@ -57,11 +57,15 @@ class DefaultScanEngine extends ScanEngine
 		{
 			if ((def.getDefinitionType() == target.getTargetType()))
 			{
+				int confidence = 0;
 				for (IScanDefinitionCriteria crit : def.getCriterion())
 				{
 					if (Arrays.equals(crit.getHashValue(), target.getHashValue()))
-						return new ThreatInfo(target, def);
+						confidence += crit.getMatchWeight();
 				}
+				
+				if (confidence > 0)
+					return new ThreatInfo(target, def, confidence);
 				
 			}
 				
