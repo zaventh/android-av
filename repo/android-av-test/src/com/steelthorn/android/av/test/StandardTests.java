@@ -32,6 +32,11 @@ public class StandardTests extends AndroidTestCase
 			{
 				return Base64.decode("3YnpxrvKu5hZxi0m/FkpE+pUcwQ=", Base64.DEFAULT);
 			}
+
+			public byte getTargetType()
+			{
+				return 1;
+			}
 		};
 
 		ThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target);

@@ -32,6 +32,10 @@ class Util
 
 		def.add(new IScanDefinition()
 		{
+			public byte getDefinitionType()
+			{
+				return DefinitionType.ANDROID_PACKAGE;
+			}
 
 			public long getSize()
 			{
@@ -46,4 +50,9 @@ class Util
 
 		return def;
 	}
+}
+
+class DefinitionType
+{
+	public static final byte ANDROID_PACKAGE = 1;
 }

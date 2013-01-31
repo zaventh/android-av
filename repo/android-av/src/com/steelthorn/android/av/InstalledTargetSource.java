@@ -10,7 +10,6 @@ public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 {
 	private List<PackageInfo> _packages;
 	
-
 	protected InstalledTargetSource(Context ctx)
 	{
 		super(ctx);
@@ -19,6 +18,7 @@ public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 	@Override
 	protected Iterator<PackageInfo> getInternalIterator()
 	{
+		// TODO: Don't preload all packages... iterate
 		if (_packages == null)
 			_packages = Util.getInstalledPackages(getContext());
 		

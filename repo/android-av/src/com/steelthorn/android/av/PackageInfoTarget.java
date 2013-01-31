@@ -50,4 +50,9 @@ public class PackageInfoTarget extends AbstractTarget<PackageInfo>
 	{
 		return getName();
 	}
+
+	public byte getTargetType()
+	{
+		return DefinitionType.ANDROID_PACKAGE;
+	}
 }

@@ -20,4 +20,10 @@ public class ThreatInfo
 	{
 		return _sig;
 	}
+	
+	public double getConfidence()
+	{
+		// TODO: Real confidence
+		return 1.0;
+	}
 }

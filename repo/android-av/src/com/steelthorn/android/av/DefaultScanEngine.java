@@ -35,11 +35,14 @@ class DefaultScanEngine extends ScanEngine
 
 	public ThreatInfo scanTarget(IScanTarget target)
 	{
+		
+		// O(n) scanning algorithm for now
+		// TODO: BST engine based on size
 		List<IScanDefinition> defs = Util.getDevDefinitions();
 
 		for (IScanDefinition def : defs)
 		{
-			if (Arrays.equals(def.getHashValue(), target.getHashValue()))
+			if ((def.getDefinitionType() == target.getTargetType()) && Arrays.equals(def.getHashValue(), target.getHashValue()))
 				return new ThreatInfo(target, def);
 		}
 
