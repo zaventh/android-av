@@ -2,7 +2,7 @@ package com.steelthorn.android.av;
 
 import android.content.pm.PackageInfo;
 
-public class PackageInfoTarget extends AbstractTarget<PackageInfo>
+class PackageInfoTarget extends AbstractTarget<PackageInfo>
 {
 	private byte[] _hash;
 

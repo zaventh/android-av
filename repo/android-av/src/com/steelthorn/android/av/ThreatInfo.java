@@ -1,6 +1,6 @@
 package com.steelthorn.android.av;
 
-public class ThreatInfo implements IThreatInfo
+class ThreatInfo implements IThreatInfo
 {
 	private final IScanTarget _target;
 	private final IScanDefinition _sig;

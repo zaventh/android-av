@@ -5,8 +5,8 @@ import android.util.Log;
 import com.steelthorn.android.av.IScanListener;
 import com.steelthorn.android.av.IScanTarget;
 import com.steelthorn.android.av.ITargetSource;
+import com.steelthorn.android.av.IThreatInfo;
 import com.steelthorn.android.av.ScanResult;
-import com.steelthorn.android.av.ThreatInfo;
 
 public class DebugScanListener implements IScanListener
 {
@@ -25,7 +25,7 @@ public class DebugScanListener implements IScanListener
 
 	}
 
-	public void onTargetScanComplete(IScanTarget target, ThreatInfo info)
+	public void onTargetScanComplete(IScanTarget target, IThreatInfo info)
 	{
 	}
 

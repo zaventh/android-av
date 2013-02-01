@@ -5,7 +5,7 @@ public interface IScanListener
 	void onTargetSourceSwitch(ITargetSource currentSource);
 	
 	void onTargetScanBegin(IScanTarget target);
-	void onTargetScanComplete(IScanTarget target, ThreatInfo info);
+	void onTargetScanComplete(IScanTarget target, IThreatInfo info);
 	
 	void onScanCompleted(ScanResult result);
 	void onScanProgress(double progress);

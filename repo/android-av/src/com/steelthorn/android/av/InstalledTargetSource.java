@@ -6,7 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 
-public class InstalledTargetSource extends ContextTargetSource<PackageInfo>
+class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 {
 	private List<PackageInfo> _packages;
 	
