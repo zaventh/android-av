@@ -2,21 +2,26 @@ package com.steelthorn.android.av;
 
 import java.util.List;
 
+import android.util.Log;
+
 class DefaultScanEngine extends ScanEngine
 {
+	private static final String TAG = "DefaultScanEngine";
 
 	public ScanResult scan(ScanContext ctx)
 	{
 		ScanResult result = new ScanResult();
 
 		//TODO: Possibly move this to the ScanContext
-		int totalCount = 0;
+		double totalCount = 0;
 		for (ITargetSource source : ctx.getSources())
 		{
 			totalCount += source.getTargetCount();
 		}
 		
-		int progressCount = 0;
+		Log.d(TAG, "Total of " + totalCount + " targets to scan.");
+		
+		double progressCount = 0;
 		for (ITargetSource source : ctx.getSources())
 		{
 			if (ctx.getListener() != null)

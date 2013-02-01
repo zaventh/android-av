@@ -8,6 +8,6 @@ public interface IScanListener
 	void onTargetScanComplete(IScanTarget target, ThreatInfo info);
 	
 	void onScanCompleted(ScanResult result);
-	void onScanProgress(int progress);
+	void onScanProgress(double progress);
 	void onScanException(Exception error);
 }

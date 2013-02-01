@@ -27,7 +27,6 @@ public class DebugScanListener implements IScanListener
 
 	public void onTargetScanComplete(IScanTarget target, ThreatInfo info)
 	{
-
 	}
 
 	public void onScanCompleted(ScanResult result)
@@ -36,9 +35,9 @@ public class DebugScanListener implements IScanListener
 
 	}
 
-	public void onScanProgress(int progress)
+	public void onScanProgress(double progress)
 	{
-
+		Log.d(TAG, "Scan progress: " + (progress * 100));
 	}
 
 	public void onScanException(Exception error)
