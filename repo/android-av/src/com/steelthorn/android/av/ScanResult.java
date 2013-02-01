@@ -1,14 +1,15 @@
 package com.steelthorn.android.av;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ScanResult
 {
-	private List<ThreatInfo> _matchedTargets;
+	private List<IThreatInfo> _matchedTargets;
 	
 	protected ScanResult()
 	{
-		
+		_matchedTargets = new ArrayList<IThreatInfo>();
 	}
 	
 	public Boolean getMatchesFound()
@@ -21,7 +22,7 @@ public class ScanResult
 		_matchedTargets.add(target);
 	}
 	
-	public List<ThreatInfo> getMatchedTargets()
+	public List<IThreatInfo> getMatchedTargets()
 	{
 		return _matchedTargets;
 	}

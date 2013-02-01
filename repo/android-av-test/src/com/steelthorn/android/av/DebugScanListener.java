@@ -1,4 +1,4 @@
-package com.steelthorn.android.av.test;
+package com.steelthorn.android.av;
 
 import android.util.Log;
 
