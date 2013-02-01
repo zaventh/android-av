@@ -6,7 +6,5 @@ public interface IScanTarget
 	
 	String getName();
 	
-	byte[] getHashValue();
-	
-	long getSize();
+	boolean checkThreat(IScanDefinitionCriteria criteria);
 }

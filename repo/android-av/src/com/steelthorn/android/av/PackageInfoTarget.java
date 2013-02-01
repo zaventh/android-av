@@ -1,8 +1,5 @@
 package com.steelthorn.android.av;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
 import android.content.pm.PackageInfo;
 
 public class PackageInfoTarget extends AbstractTarget<PackageInfo>
@@ -14,26 +11,10 @@ public class PackageInfoTarget extends AbstractTarget<PackageInfo>
 		super(target);
 	}
 
-	public byte[] getHashValue()
+	@Override
+	protected byte[] getBytesToHash()
 	{
-		if (_hash == null)
-		{
-
-			//TOOD: Abstract later
-			try
-			{
-				MessageDigest md = MessageDigest.getInstance("SHA-1");
-				md.update(_target.packageName.getBytes());
-				_hash = md.digest();
-			}
-			catch (NoSuchAlgorithmException e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-		}
-		return _hash;
+		return _target.packageName.getBytes();
 	}
 
 	public long getSize()
@@ -44,11 +25,6 @@ public class PackageInfoTarget extends AbstractTarget<PackageInfo>
 	public String getName()
 	{
 		return _target.packageName;
-	}
-
-	public String toString()
-	{
-		return getName();
 	}
 
 	public byte getTargetType()

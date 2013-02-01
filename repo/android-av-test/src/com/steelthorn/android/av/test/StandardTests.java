@@ -1,5 +1,7 @@
 package com.steelthorn.android.av.test;
 
+import java.util.Arrays;
+
 import junit.framework.Assert;
 
 import org.junit.Test;
@@ -7,11 +9,12 @@ import org.junit.Test;
 import android.test.AndroidTestCase;
 
 import com.steelthorn.android.av.Base64;
+import com.steelthorn.android.av.IScanDefinitionCriteria;
 import com.steelthorn.android.av.IScanTarget;
+import com.steelthorn.android.av.IThreatInfo;
 import com.steelthorn.android.av.ScanEngine;
 import com.steelthorn.android.av.ScanManager;
 import com.steelthorn.android.av.ScanResult;
-import com.steelthorn.android.av.ThreatInfo;
 
 public class StandardTests extends AndroidTestCase
 {
@@ -23,11 +26,6 @@ public class StandardTests extends AndroidTestCase
 		{
 			public String getName() { return "Test"; };
 
-			public long getSize()
-			{
-				return 23;
-			}
-
 			public byte[] getHashValue()
 			{
 				return Base64.decode("3YnpxrvKu5hZxi0m/FkpE+pUcwQ=", Base64.DEFAULT);
@@ -37,11 +35,19 @@ public class StandardTests extends AndroidTestCase
 			{
 				return 1;
 			}
+
+			public boolean checkThreat(IScanDefinitionCriteria criteria)
+			{
+				// TODO Auto-generated method stub
+				return Arrays.equals(getHashValue(), criteria.getHashValue());
+			}
 		};
 
-		ThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target);
+		IThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target);
 
 		Assert.assertNotNull(ti);
+		
+		Assert.assertTrue(ti.getConfidence() >= 1);
 
 	}
 

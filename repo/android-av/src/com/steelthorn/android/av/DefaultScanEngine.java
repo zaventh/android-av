@@ -1,6 +1,5 @@
 package com.steelthorn.android.av;
 
-import java.util.Arrays;
 import java.util.List;
 
 class DefaultScanEngine extends ScanEngine
@@ -60,7 +59,7 @@ class DefaultScanEngine extends ScanEngine
 				int confidence = 0;
 				for (IScanDefinitionCriteria crit : def.getCriterion())
 				{
-					if (Arrays.equals(crit.getHashValue(), target.getHashValue()))
+					if (target.checkThreat(crit))
 						confidence += crit.getMatchWeight();
 				}
 				

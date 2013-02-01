@@ -6,5 +6,7 @@ public interface IScanDefinitionCriteria
 	
 	long getMatchSize();
 	
+	long getPosition();
+	
 	double getMatchWeight();
 }

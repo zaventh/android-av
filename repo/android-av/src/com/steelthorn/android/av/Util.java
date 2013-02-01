@@ -59,6 +59,12 @@ class Util
 					{
 						return 1;
 					}
+
+					public long getPosition()
+					{
+						// TODO Auto-generated method stub
+						return -1;
+					}
 				});
 				
 				return crit;
