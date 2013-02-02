@@ -6,5 +6,5 @@ public interface IScanTarget
 	
 	String getName();
 	
-	boolean checkThreat(IScanDefinitionCriteria criteria);
+	boolean checkThreat(IScanDefinition criteria);
 }

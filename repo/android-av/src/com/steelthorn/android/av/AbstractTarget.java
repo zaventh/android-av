@@ -55,7 +55,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 		return _hash;
 	}
 	
-	public boolean checkThreat(IScanDefinitionCriteria criteria)
+	public boolean checkThreat(IScanDefinition criteria)
 	{
 		if (Arrays.equals(criteria.getHashValue(), getHashValue()))
 			return true;

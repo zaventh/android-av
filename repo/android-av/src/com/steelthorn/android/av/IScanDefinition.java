@@ -6,5 +6,11 @@ public interface IScanDefinition
 {
 	byte getDefinitionType();
 	
-	List<IScanDefinitionCriteria> getCriterion();
+	byte[] getHashValue();
+	
+	long getMatchSize();
+	
+	long getPosition();
+	
+	double getMatchWeight();
 }
