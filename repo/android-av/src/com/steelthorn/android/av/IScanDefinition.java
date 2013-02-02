@@ -1,6 +1,5 @@
 package com.steelthorn.android.av;
 
-import java.util.List;
 
 public interface IScanDefinition
 {
@@ -8,7 +7,7 @@ public interface IScanDefinition
 	
 	byte[] getHashValue();
 	
-	long getMatchSize();
+	int getMatchSize();
 	
 	long getPosition();
 	

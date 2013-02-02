@@ -4,22 +4,21 @@ import android.content.pm.PackageInfo;
 
 class PackageInfoTarget extends AbstractTarget<PackageInfo>
 {
-	private byte[] _hash;
-
 	protected PackageInfoTarget(PackageInfo target)
 	{
 		super(target);
 	}
 
 	@Override
-	protected byte[] getBytesToHash()
+	protected byte[] getBytesToHash(long position, int length)
 	{
-		return _target.packageName.getBytes();
-	}
 
-	public long getSize()
-	{
-		return _hash.length;
+		byte[] target = _target.packageName.substring((int) position).getBytes();
+
+		if (target.length > length)
+			target = Util.truncateArray(target, length);
+
+		return target;
 	}
 
 	public String getName()

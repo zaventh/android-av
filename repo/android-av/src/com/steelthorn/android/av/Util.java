@@ -37,7 +37,7 @@ class Util
 				return DefinitionType.ANDROID_PACKAGE;
 			}
 
-			public long getMatchSize()
+			public int getMatchSize()
 			{
 				return 23;
 			}
@@ -57,12 +57,22 @@ class Util
 			public long getPosition()
 			{
 				// TODO Auto-generated method stub
-				return -1;
+				return 0;
 			}
 
 		});
 
 		return def;
+	}
+	
+	public static byte[] truncateArray(byte[] original, int newLength)
+	{
+		byte[] smaller = new byte[newLength];
+		
+		for (int i = 0; i < newLength; i++)
+			smaller[i] = original[i];
+		
+		return smaller;
 	}
 }
 

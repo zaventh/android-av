@@ -14,7 +14,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 		_target = target;
 	}
 	
-	protected abstract byte[] getBytesToHash();
+	protected abstract byte[] getBytesToHash(long position, int length);
 	
 	public T getIdentifier()
 	{
@@ -33,7 +33,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 	//		return getName().hashCode();
 	//	}
 
-	protected byte[] getHashValue()
+	protected byte[] getHashValue(long position, int length)
 	{
 		if (_hash == null)
 		{
@@ -42,7 +42,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 			try
 			{
 				MessageDigest md = MessageDigest.getInstance("SHA-1");
-				md.update(getBytesToHash());
+				md.update(getBytesToHash(position, length));
 				_hash = md.digest();
 			}
 			catch (NoSuchAlgorithmException e)
@@ -57,7 +57,10 @@ abstract class AbstractTarget<T> implements IScanTarget
 	
 	public boolean checkThreat(IScanDefinition criteria)
 	{
-		if (Arrays.equals(criteria.getHashValue(), getHashValue()))
+		if (criteria.getDefinitionType() != getTargetType())
+			return false;
+		
+		if (Arrays.equals(criteria.getHashValue(), getHashValue(criteria.getPosition(), criteria.getMatchSize())))
 			return true;
 		else
 			return false;
