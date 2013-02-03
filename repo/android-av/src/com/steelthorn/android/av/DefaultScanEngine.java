@@ -63,7 +63,7 @@ class DefaultScanEngine extends ScanEngine
 			{
 
 				if (target.checkThreat(def))
-					confidence += def.getMatchWeight();
+					confidence += def.getWeight();
 			}
 
 			if (confidence > 0)

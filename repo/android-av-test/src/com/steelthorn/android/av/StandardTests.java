@@ -63,12 +63,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -113,12 +113,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 1;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -163,12 +163,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -213,12 +213,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -263,12 +263,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -322,12 +322,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -380,12 +380,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
@@ -438,12 +438,12 @@ public class StandardTests extends AndroidTestCase
 		IScanDefinition criteria = new IScanDefinition()
 		{
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				return 0;
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}

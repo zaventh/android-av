@@ -9,7 +9,7 @@ public interface IScanDefinition
 	
 	int getMatchSize();
 	
-	long getPosition();
+	long getMatchPosition();
 	
-	double getMatchWeight();
+	double getWeight();
 }

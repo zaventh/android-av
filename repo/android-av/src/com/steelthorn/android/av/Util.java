@@ -49,12 +49,12 @@ class Util
 
 			}
 
-			public double getMatchWeight()
+			public double getWeight()
 			{
 				return 1;
 			}
 
-			public long getPosition()
+			public long getMatchPosition()
 			{
 				// TODO Auto-generated method stub
 				return 0;

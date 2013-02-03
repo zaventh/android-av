@@ -60,7 +60,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 		if (criteria.getDefinitionType() != getTargetType())
 			return false;
 		
-		if (Arrays.equals(criteria.getHashValue(), getHashValue(criteria.getPosition(), criteria.getMatchSize())))
+		if (Arrays.equals(criteria.getHashValue(), getHashValue(criteria.getMatchPosition(), criteria.getMatchSize())))
 			return true;
 		else
 			return false;
