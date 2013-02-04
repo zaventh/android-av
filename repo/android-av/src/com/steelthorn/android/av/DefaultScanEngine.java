@@ -10,6 +10,12 @@ class DefaultScanEngine extends ScanEngine
 
 	public void scan(ScanContext ctx)
 	{
+		if (ctx == null)
+			throw new IllegalArgumentException("A scan context must be supplied");
+
+		if (ctx.getListener() == null)
+			throw new IllegalArgumentException("An IScanListener must be set on the context.");
+
 		ScanResult result = new ScanResult();
 
 		//TODO: Possibly move this to the ScanContext
@@ -24,39 +30,35 @@ class DefaultScanEngine extends ScanEngine
 		double progressCount = 0;
 		for (ITargetSource source : ctx.getSources())
 		{
-			if (ctx.getListener() != null)
-				ctx.getListener().onTargetSourceSwitch(source);
+
+			ctx.getListener().onTargetSourceSwitch(source);
 
 			for (IScanTarget target : source)
 			{
 				if (_cancel)
 				{
 					Log.i(TAG, "Scan canceled by user request.");
-					if (ctx.getListener() != null)
-						ctx.getListener().onScanCanceled(result);
+
+					ctx.getListener().onScanCanceled(result);
 					return;
 				}
 
-				if (ctx.getListener() != null)
-					ctx.getListener().onTargetScanBegin(target);
+				ctx.getListener().onTargetScanBegin(target);
 
 				ThreatInfo ti = scanTarget(target);
 
 				progressCount++;
 
-				if (ctx.getListener() != null)
-					ctx.getListener().onScanProgress(progressCount / totalCount);
+				ctx.getListener().onScanProgress(progressCount / totalCount);
 
 				if (ti != null)
 					result.addMatchFound(ti);
 
-				if (ctx.getListener() != null)
-					ctx.getListener().onTargetScanComplete(target, ti);
+				ctx.getListener().onTargetScanComplete(target, ti);
 			}
 		}
-		
-		if (ctx.getListener() != null)
-			ctx.getListener().onScanCompleted(result);
+
+		ctx.getListener().onScanCompleted(result);
 
 		return;
 	}
