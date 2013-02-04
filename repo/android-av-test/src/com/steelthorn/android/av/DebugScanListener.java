@@ -11,6 +11,8 @@ import com.steelthorn.android.av.ScanResult;
 public class DebugScanListener implements IScanListener
 {
 	private static final String TAG = "DebugScanListener";
+	
+	protected ScanResult _lastResult;
 
 	public void onTargetSourceSwitch(ITargetSource currentSource)
 	{
@@ -32,6 +34,7 @@ public class DebugScanListener implements IScanListener
 	public void onScanCompleted(ScanResult result)
 	{
 		Log.d(TAG, "Scan completed.");
+		_lastResult = result;
 
 	}
 

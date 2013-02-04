@@ -8,7 +8,7 @@ class DefaultScanEngine extends ScanEngine
 {
 	private static final String TAG = "DefaultScanEngine";
 
-	public ScanResult scan(ScanContext ctx)
+	public void scan(ScanContext ctx)
 	{
 		ScanResult result = new ScanResult();
 
@@ -34,7 +34,7 @@ class DefaultScanEngine extends ScanEngine
 					Log.i(TAG, "Scan canceled by user request.");
 					if (ctx.getListener() != null)
 						ctx.getListener().onScanCanceled(result);
-					return result;
+					return;
 				}
 
 				if (ctx.getListener() != null)
@@ -54,8 +54,11 @@ class DefaultScanEngine extends ScanEngine
 					ctx.getListener().onTargetScanComplete(target, ti);
 			}
 		}
+		
+		if (ctx.getListener() != null)
+			ctx.getListener().onScanCompleted(result);
 
-		return result;
+		return;
 	}
 
 	public ThreatInfo scanTarget(IScanTarget target)

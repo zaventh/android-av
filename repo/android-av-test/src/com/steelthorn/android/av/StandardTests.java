@@ -58,10 +58,20 @@ public class StandardTests extends AndroidTestCase
 
 	@Test
 	public void testBasicScan() throws Exception
-	{
-		ScanResult result = new ScanManager().performBasicScan(getContext(), new DebugScanListener());
+	{		
+		final DebugScanListener listener = new DebugScanListener();
+		
+		Thread t = new Thread()
+		{
+			public void run()
+			{
+				new ScanManager().performBasicScan(getContext(), listener);
+			}
+		};
+		
+		t.start(); t.join();
 
-		Assert.assertFalse(result.getMatchesFound());
+		Assert.assertFalse(listener._lastResult.getMatchesFound());
 	}
 
 	@Test
