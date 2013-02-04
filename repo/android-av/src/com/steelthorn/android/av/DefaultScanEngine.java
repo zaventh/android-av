@@ -29,6 +29,14 @@ class DefaultScanEngine extends ScanEngine
 
 			for (IScanTarget target : source)
 			{
+				if (_cancel)
+				{
+					Log.i(TAG, "Scan canceled by user request.");
+					if (ctx.getListener() != null)
+						ctx.getListener().onScanCanceled(result);
+					return result;
+				}
+
 				if (ctx.getListener() != null)
 					ctx.getListener().onTargetScanBegin(target);
 

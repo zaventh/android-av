@@ -10,4 +10,6 @@ public interface IScanListener
 	void onScanCompleted(ScanResult result);
 	void onScanProgress(double progress);
 	void onScanException(Exception error);
+	
+	void onScanCanceled(ScanResult result);
 }

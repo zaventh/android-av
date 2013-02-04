@@ -2,9 +2,16 @@ package com.steelthorn.android.av;
 
 public abstract class ScanEngine implements IScanEngine
 {
+	protected boolean _cancel;
+	
 	public static ScanEngine getDefaultScanEngine()
 	{
 		return new DefaultScanEngine();
+	}
+	
+	public void cancel()
+	{
+		_cancel = true;
 	}
 	
 //	public void scanAsync(final IScanContext ctx, final IScanCallback callback)

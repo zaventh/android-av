@@ -45,4 +45,9 @@ public class DebugScanListener implements IScanListener
 		Log.d(TAG, "An error occurred while scanning: " + error.getMessage());
 	}
 
+	public void onScanCanceled(ScanResult result)
+	{
+		Log.d(TAG, "Scan canceled.");
+	}
+
 }

@@ -7,11 +7,20 @@ import java.util.Arrays;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import static org.mockito.Mockito.*;
 
 import android.test.AndroidTestCase;
 
 public class StandardTests extends AndroidTestCase
 {
+	
+	
+	@Override
+	protected void setUp() throws Exception
+	{
+	    super.setUp();
+	    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+	}
 
 	@Test
 	public void testMatch() throws Exception
@@ -477,5 +486,26 @@ public class StandardTests extends AndroidTestCase
 		}
 
 		Assert.assertFalse(matchFound);
+	}
+	
+	@Test
+	public void testScanCancel() throws Exception
+	{
+		final IScanListener listenMock = mock(IScanListener.class);
+		
+		final ScanEngine engine = ScanEngine.getDefaultScanEngine();		
+		
+		new Thread() {
+			public void run()
+			{
+				engine.scan(new BasicScanContext(getContext(), listenMock));
+			}
+		}.start();
+		
+		engine.cancel();
+		
+		Thread.sleep(250);
+		
+		verify(listenMock).onScanCanceled(any(ScanResult.class));
 	}
 }

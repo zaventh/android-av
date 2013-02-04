@@ -11,5 +11,6 @@ public interface IScanEngine
 	ScanResult scan(ScanContext ctx);
 	
 	IThreatInfo scanTarget(IScanTarget target);
-	//void scanAsync(IScanContext ctx, IScanCallback callback);
+	
+	void cancel();
 }
