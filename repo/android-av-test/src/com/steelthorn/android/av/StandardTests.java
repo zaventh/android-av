@@ -1,5 +1,9 @@
 package com.steelthorn.android.av;
 
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
@@ -7,7 +11,6 @@ import java.util.Arrays;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import static org.mockito.Mockito.*;
 
 import android.test.AndroidTestCase;
 
@@ -79,38 +82,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.softkeyboard".getBytes().length;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				// com.example.android.softkeyboard
-				return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT);
-			}
-
-			public byte getDefinitionType()
-			{
-
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -129,38 +101,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 1;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.softkeyboard".getBytes().length;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				// com.example.android.softkeyboard
-				return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT);
-			}
-
-			public byte getDefinitionType()
-			{
-
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		criteria.setMatchPos(1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -179,38 +121,9 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.softkeyboard".getBytes().length - 1;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				// com.example.android.softkeyboard
-				return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT);
-			}
-
-			public byte getDefinitionType()
-			{
-
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		//criteria.setMatchPos(criteria.getMatchPosition()-1);
+		criteria.setMatchSize(criteria.getMatchSize()-1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -229,38 +142,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.softkeyboard".getBytes().length + 1;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				// com.example.android.softkeyboard
-				return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT);
-			}
-
-			public byte getDefinitionType()
-			{
-
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		criteria.setMatchSize(criteria.getMatchSize() + 1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -279,47 +162,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.soft".getBytes().length;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				try
-				{
-					MessageDigest md = MessageDigest.getInstance("SHA-1");
-					md.update("com.example.android.soft".getBytes());
-					return md.digest();
-				}
-				catch (NoSuchAlgorithmException e)
-				{
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			public byte getDefinitionType()
-			{
-
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.soft");
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -338,46 +181,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.soft".getBytes().length + 1;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				try
-				{
-					MessageDigest md = MessageDigest.getInstance("SHA-1");
-					md.update("com.example.android.soft".getBytes());
-					return md.digest();
-				}
-				catch (NoSuchAlgorithmException e)
-				{
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			public byte getDefinitionType()
-			{
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.soft");
+		criteria.setMatchSize(criteria.getMatchSize()+1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -396,95 +201,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.soft".getBytes().length - 1;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				try
-				{
-					MessageDigest md = MessageDigest.getInstance("SHA-1");
-					md.update("com.example.android.soft".getBytes());
-					return md.digest();
-				}
-				catch (NoSuchAlgorithmException e)
-				{
-					e.printStackTrace();
-				}
-				return null;
-			}
-
-			public byte getDefinitionType()
-			{
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-		};
-
-		boolean matchFound = false;
-		for (IScanTarget t : source)
-		{
-			matchFound = t.checkThreat(criteria);
-
-			if (matchFound)
-				break;
-		}
-
-		Assert.assertFalse(matchFound);
-	}
-
-	@Test
-	public void testIncorrectDefinitionType() throws Exception
-	{
-		ITargetSource source = new InstalledTargetSource(getContext());
-
-		IScanDefinition criteria = new IScanDefinition()
-		{
-
-			public long getMatchPosition()
-			{
-				return 0;
-			}
-
-			public double getWeight()
-			{
-				return 1;
-			}
-
-			public int getMatchSize()
-			{
-				return "com.example.android.softkeyboard".getBytes().length + 1;
-				//return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT).length;
-			}
-
-			public byte[] getHashValue()
-			{
-
-				// com.example.android.softkeyboard
-				return Base64.decode("CLZof02MBHxFPZwCSwxJcxjamTM=", Base64.DEFAULT);
-			}
-
-			public byte getDefinitionType()
-			{
-				return 99;
-			}
-		};
+		TestDefinition criteria = createDefGroup("com.example.android.soft");
+		criteria.setMatchSize(criteria.getMatchSize()-1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -517,5 +235,22 @@ public class StandardTests extends AndroidTestCase
 		Thread.sleep(250);
 		
 		verify(listenMock).onScanCanceled(any(ScanResult.class));
+	}
+	
+	private TestDefinition createDefGroup(final String packageName)
+	{
+		try
+		{
+			MessageDigest md = MessageDigest.getInstance("SHA-1");
+			md.update(packageName.getBytes());
+			return new TestDefinition(packageName, md.digest());
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+		
+		
 	}
 }

@@ -3,7 +3,7 @@ package com.steelthorn.android.av;
 
 public interface IScanDefinition
 {
-	byte getDefinitionType();
+	int getDefinitionId();
 	
 	byte[] getHashValue();
 	

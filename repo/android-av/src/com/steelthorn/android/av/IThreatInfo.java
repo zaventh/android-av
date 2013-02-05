@@ -4,7 +4,7 @@ public interface IThreatInfo
 {
 	public IScanTarget getTarget();
 	
-	public IScanDefinition getSignature();
+	public IScanDefinitionGroup getSignature();
 	
 	public double getConfidence();
 }

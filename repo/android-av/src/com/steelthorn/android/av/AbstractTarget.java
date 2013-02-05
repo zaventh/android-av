@@ -56,10 +56,7 @@ abstract class AbstractTarget<T> implements IScanTarget
 	}
 	
 	public boolean checkThreat(IScanDefinition criteria)
-	{
-		if (criteria.getDefinitionType() != getTargetType())
-			return false;
-		
+	{		
 		if (Arrays.equals(criteria.getHashValue(), getHashValue(criteria.getMatchPosition(), criteria.getMatchSize())))
 			return true;
 		else

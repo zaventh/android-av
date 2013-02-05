@@ -140,11 +140,8 @@ public class BinarySearchTree<T extends Comparable<T>>
 			/* 2*/t = new BinaryNode<T>(x);
 		/* 3*/else if (x.compareTo(t.element) < 0)
 			/* 4*/t.left = insert(x, t.left);
-		/* 5*/else if (x.compareTo(t.element) > 0)
+		/* 5*/else if (x.compareTo(t.element) >= 0)
 			/* 6*/t.right = insert(x, t.right);
-		/* 7*/else
-			/* 8*/; // Duplicate; do nothing
-		/* 9*/
 		return t;
 	}
 
@@ -163,7 +160,7 @@ public class BinarySearchTree<T extends Comparable<T>>
 			return t; // Item not found; do nothing
 		if (x.compareTo(t.element) < 0)
 			t.left = remove(x, t.left);
-		else if (x.compareTo(t.element) > 0)
+		else if (x.compareTo(t.element) >= 0)
 			t.right = remove(x, t.right);
 		else if (t.left != null && t.right != null) // Two children
 		{

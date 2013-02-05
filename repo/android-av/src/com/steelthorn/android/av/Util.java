@@ -26,15 +26,15 @@ class Util
 		return nonSystemPackages;
 	}
 
-	public static List<IScanDefinition> getDevDefinitions()
+	public static List<IScanDefinitionGroup> getDevDefinitions()
 	{
-		List<IScanDefinition> def = new ArrayList<IScanDefinition>();
+		final List<IScanDefinition> def = new ArrayList<IScanDefinition>();
 
 		def.add(new IScanDefinition()
 		{
-			public byte getDefinitionType()
+			public int getDefinitionId()
 			{
-				return DefinitionType.ANDROID_PACKAGE;
+				return 1;
 			}
 
 			public int getMatchSize()
@@ -61,8 +61,32 @@ class Util
 			}
 
 		});
-
-		return def;
+		
+		IScanDefinitionGroup group = new IScanDefinitionGroup()
+		{
+			
+			public List<IScanDefinition> getDefinitions()
+			{
+				return def;
+			}
+			
+			public byte getDefinitionType()
+			{
+				// TODO Auto-generated method stub
+				return DefinitionType.ANDROID_PACKAGE;
+			}
+			
+			public int getDefinitionGroupId()
+			{
+				// TODO Auto-generated method stub
+				return 1;
+			}
+		};
+		
+		List<IScanDefinitionGroup> allDefs = new ArrayList<IScanDefinitionGroup>();
+		allDefs.add(group);
+		
+		return allDefs;
 	}
 	
 	public static byte[] truncateArray(byte[] original, int newLength)
@@ -80,3 +104,4 @@ class DefinitionType
 {
 	public static final byte ANDROID_PACKAGE = 1;
 }
+

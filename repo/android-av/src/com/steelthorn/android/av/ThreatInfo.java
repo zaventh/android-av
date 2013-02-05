@@ -3,10 +3,10 @@ package com.steelthorn.android.av;
 class ThreatInfo implements IThreatInfo
 {
 	private final IScanTarget _target;
-	private final IScanDefinition _sig;
+	private final IScanDefinitionGroup _sig;
 	private final double _confidence;
 	
-	protected ThreatInfo(IScanTarget target, IScanDefinition signature, double confidence)
+	protected ThreatInfo(IScanTarget target, IScanDefinitionGroup signature, double confidence)
 	{
 		_target = target;
 		_sig = signature;
@@ -18,7 +18,7 @@ class ThreatInfo implements IThreatInfo
 		return _target;
 	}
 	
-	public IScanDefinition getSignature()
+	public IScanDefinitionGroup getSignature()
 	{
 		return _sig;
 	}

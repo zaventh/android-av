@@ -67,21 +67,23 @@ class DefaultScanEngine extends ScanEngine
 	{
 		// O(n) scanning algorithm for now
 		// TODO: BST engine based on size
-		List<IScanDefinition> defs = Util.getDevDefinitions();
+		List<IScanDefinitionGroup> groups = Util.getDevDefinitions();
 
-		for (IScanDefinition def : defs)
+		for (IScanDefinitionGroup group : groups)
 		{
-			int confidence = 0;
-			if ((def.getDefinitionType() == target.getTargetType()))
-			{
+			if (!(target.getTargetType() == group.getDefinitionType()))
+				continue;
 
+			int confidence = 0;
+			for (IScanDefinition def : group.getDefinitions())
+			{
 				if (target.checkThreat(def))
 					confidence += def.getWeight();
+
 			}
 
-			if (confidence > 0)
-				return new ThreatInfo(target, def, confidence);
-
+			if (confidence >= 1)
+				return new ThreatInfo(target, group, confidence);
 		}
 
 		return null;
