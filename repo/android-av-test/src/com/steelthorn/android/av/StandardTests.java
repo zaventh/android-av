@@ -6,7 +6,9 @@ import static org.mockito.Mockito.verify;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import junit.framework.Assert;
 
@@ -16,8 +18,6 @@ import android.test.AndroidTestCase;
 
 public class StandardTests extends AndroidTestCase
 {
-	
-	
 	@Override
 	protected void setUp() throws Exception
 	{
@@ -52,7 +52,7 @@ public class StandardTests extends AndroidTestCase
 			}
 		};
 
-		IThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target);
+		IThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target, new DevDefinitionProvider());
 
 		Assert.assertNotNull(ti);
 
@@ -226,7 +226,7 @@ public class StandardTests extends AndroidTestCase
 		new Thread() {
 			public void run()
 			{
-				engine.scan(new BasicScanContext(getContext(), listenMock));
+				engine.scan(new BasicScanContext(getContext(), listenMock), new DevDefinitionProvider());
 			}
 		}.start();
 		
@@ -236,6 +236,117 @@ public class StandardTests extends AndroidTestCase
 		
 		verify(listenMock).onScanCanceled(any(ScanResult.class));
 	}
+	
+	@Test
+	public void testPartialWeightMatch() throws Exception
+	{
+		DebugScanListener listener = new DebugScanListener();
+		
+		TestDefinition def1 = createDefGroup("com.example");
+		def1.setWeight(.5);
+		
+		TestDefinition def2 = createDefGroup("android.softkeyboard");
+		def2.setMatchPos(12);
+		def2.setWeight(.5);
+		
+		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
+		defArray.add(def1); defArray.add(def2);
+		
+		IScanDefinitionGroup group = new IScanDefinitionGroup()
+		{
+			
+			@Override
+			public List<IScanDefinition> getDefinitions()
+			{
+				return defArray;
+			}
+			
+			@Override
+			public byte getDefinitionType()
+			{
+				return DefinitionType.ANDROID_PACKAGE;
+			}
+			
+			@Override
+			public int getDefinitionGroupId()
+			{
+				return 1;
+			}
+		};
+		
+		final List<IScanDefinitionGroup> defGroupArray = new ArrayList<IScanDefinitionGroup>();
+		defGroupArray.add(group);
+		
+		ScanEngine se = ScanEngine.getDefaultScanEngine();
+		
+		se.scan(new BasicScanContext(getContext(), listener), new IScanDefinitionProvider()
+		{
+			
+			@Override
+			public List<IScanDefinitionGroup> getDefinitions()
+			{
+				return defGroupArray;
+			}
+		});
+		
+		assertTrue(listener._lastResult.getMatchedTargets().get(0).getConfidence() == 1);
+	}
+	
+	@Test
+	public void testPartialWeightAnyMatch() throws Exception
+	{
+		DebugScanListener listener = new DebugScanListener();
+		
+		TestDefinition def1 = createDefGroup("com.example");
+		def1.setWeight(1);
+		
+		TestDefinition def2 = createDefGroup("android.softkeyboard");
+		def2.setMatchPos(12);
+		def2.setWeight(1);
+		
+		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
+		defArray.add(def1); defArray.add(def2);
+		
+		IScanDefinitionGroup group = new IScanDefinitionGroup()
+		{
+			
+			@Override
+			public List<IScanDefinition> getDefinitions()
+			{
+				return defArray;
+			}
+			
+			@Override
+			public byte getDefinitionType()
+			{
+				return DefinitionType.ANDROID_PACKAGE;
+			}
+			
+			@Override
+			public int getDefinitionGroupId()
+			{
+				return 1;
+			}
+		};
+		
+		final List<IScanDefinitionGroup> defGroupArray = new ArrayList<IScanDefinitionGroup>();
+		defGroupArray.add(group);
+		
+		ScanEngine se = ScanEngine.getDefaultScanEngine();
+		
+		se.scan(new BasicScanContext(getContext(), listener), new IScanDefinitionProvider()
+		{
+			
+			@Override
+			public List<IScanDefinitionGroup> getDefinitions()
+			{
+				return defGroupArray;
+			}
+		});
+		
+		assertTrue(listener._lastResult.getMatchedTargets().get(0).getConfidence() == 2);
+	}
+	
 	
 	private TestDefinition createDefGroup(final String packageName)
 	{

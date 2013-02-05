@@ -10,7 +10,8 @@ public class ScanManager
 
 		ScanContext ctx = new BasicScanContext(appCtx, listener);
 
-		engine.scan(ctx);
+		// TODO: Abstract out, obviously
+		engine.scan(ctx, new DevDefinitionProvider());
 	}
 
 	public void performBasicScanAsync(final Context appCtx, final IScanListener listener)

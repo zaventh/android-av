@@ -9,6 +9,8 @@ abstract class AbstractTarget<T> implements IScanTarget
 	protected final T _target;
 	private byte[] _hash;
 	
+	private long _lastPosition;
+	
 	protected AbstractTarget(T target)
 	{
 		_target = target;
@@ -26,18 +28,11 @@ abstract class AbstractTarget<T> implements IScanTarget
 	{
 		return getName();
 	}
-	
-	//	@Override
-	//	public int hashCode()
-	//	{
-	//		return getName().hashCode();
-	//	}
 
 	protected byte[] getHashValue(long position, int length)
 	{
-		if (_hash == null)
+		if (_hash == null || _lastPosition != position)
 		{
-
 			//TOOD: Abstract later
 			try
 			{
@@ -47,9 +42,10 @@ abstract class AbstractTarget<T> implements IScanTarget
 			}
 			catch (NoSuchAlgorithmException e)
 			{
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			_lastPosition = position;
 
 		}
 		return _hash;

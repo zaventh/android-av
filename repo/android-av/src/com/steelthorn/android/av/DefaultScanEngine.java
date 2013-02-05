@@ -1,14 +1,12 @@
 package com.steelthorn.android.av;
 
-import java.util.List;
-
 import android.util.Log;
 
 class DefaultScanEngine extends ScanEngine
 {
 	private static final String TAG = "DefaultScanEngine";
 
-	public void scan(ScanContext ctx)
+	public void scan(ScanContext ctx, IScanDefinitionProvider provider)
 	{
 		if (ctx == null)
 			throw new IllegalArgumentException("A scan context must be supplied");
@@ -45,7 +43,7 @@ class DefaultScanEngine extends ScanEngine
 
 				ctx.getListener().onTargetScanBegin(target);
 
-				ThreatInfo ti = scanTarget(target);
+				ThreatInfo ti = scanTarget(target, provider);
 
 				progressCount++;
 
@@ -63,23 +61,24 @@ class DefaultScanEngine extends ScanEngine
 		return;
 	}
 
-	public ThreatInfo scanTarget(IScanTarget target)
+	public ThreatInfo scanTarget(IScanTarget target, IScanDefinitionProvider provider)
 	{
 		// O(n) scanning algorithm for now
 		// TODO: BST engine based on size
-		List<IScanDefinitionGroup> groups = Util.getDevDefinitions();
+		//List<IScanDefinitionGroup> groups = Util.getDevDefinitions();
 
-		for (IScanDefinitionGroup group : groups)
+		for (IScanDefinitionGroup group : provider.getDefinitions())
 		{
 			if (!(target.getTargetType() == group.getDefinitionType()))
 				continue;
 
-			int confidence = 0;
+			double confidence = 0;
 			for (IScanDefinition def : group.getDefinitions())
 			{
 				if (target.checkThreat(def))
 					confidence += def.getWeight();
 
+				// Break if confidence is already > 1?
 			}
 
 			if (confidence >= 1)
