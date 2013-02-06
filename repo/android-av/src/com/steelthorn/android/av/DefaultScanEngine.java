@@ -76,7 +76,11 @@ class DefaultScanEngine extends ScanEngine
 			for (IScanDefinition def : group.getDefinitions())
 			{
 				if (target.checkThreat(def))
+				{
 					confidence += def.getWeight();
+					
+					Log.d(TAG, "Target " + target.getName() + " was a match for definition id " + def.getDefinitionId());
+				}
 
 				// Break if confidence is already > 1?
 			}

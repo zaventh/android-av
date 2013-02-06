@@ -29,6 +29,11 @@ class PackageInfoTarget extends AbstractTarget<PackageInfo>
 	{
 		return _target.packageName;
 	}
+	
+	public long getSize()
+	{
+		return _target.packageName.length();
+	}
 
 	public byte getTargetType()
 	{

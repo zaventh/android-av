@@ -18,7 +18,10 @@ package com.steelthorn.android.av;
  * Implements an unbalanced binary search tree. Note that all "matching" is
  * based on the compareTo method.
  * 
+ * Extended to use generics and support duplicate node values.
+ * 
  * @author Mark Allen Weiss
+ * @author Jeff Mixon
  */
 public class BinarySearchTree<T extends Comparable<T>>
 {

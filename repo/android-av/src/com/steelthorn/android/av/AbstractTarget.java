@@ -58,4 +58,9 @@ abstract class AbstractTarget<T> implements IScanTarget
 		else
 			return false;
 	}
+	
+	public int compareTo(IScanTarget another)
+	{
+		return Double.compare(getSize(), another.getSize());
+	}
 }

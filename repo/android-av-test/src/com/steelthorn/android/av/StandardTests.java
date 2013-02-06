@@ -50,6 +50,19 @@ public class StandardTests extends AndroidTestCase
 
 				return Arrays.equals(getHashValue(), criteria.getHashValue());
 			}
+
+			@Override
+			public int compareTo(IScanTarget another)
+			{
+				// TODO Auto-generated method stub
+				return 0;
+			}
+
+			@Override
+			public long getSize()
+			{
+				return getHashValue().length;
+			}
 		};
 
 		IThreatInfo ti = ScanEngine.getDefaultScanEngine().scanTarget(target, new DevDefinitionProvider());
