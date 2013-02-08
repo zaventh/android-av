@@ -1,7 +1,7 @@
 package com.steelthorn.android.av;
 
 
-public interface IScanDefinition
+public interface IScanDefinition 
 {
 	int getDefinitionId();
 	

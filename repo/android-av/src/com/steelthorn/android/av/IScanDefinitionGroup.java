@@ -2,7 +2,9 @@ package com.steelthorn.android.av;
 
 import java.util.List;
 
-public interface IScanDefinitionGroup
+import algs.model.IPoint;
+
+public interface IScanDefinitionGroup extends IPoint
 {
 	public int getDefinitionGroupId();
 	
