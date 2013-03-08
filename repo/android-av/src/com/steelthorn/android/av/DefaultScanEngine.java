@@ -63,7 +63,7 @@ public class DefaultScanEngine extends ScanEngine
 
 	public IThreatInfo scanTarget(IScanTarget target, IScanDefinitionProvider provider)
 	{
-		// O(n) scanning algorithm for now
+		// O(n^2) scanning algorithm for now
 		// TODO: BST engine based on size
 		//List<IScanDefinitionGroup> groups = Util.getDevDefinitions();
 

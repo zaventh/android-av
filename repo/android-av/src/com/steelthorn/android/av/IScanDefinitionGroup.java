@@ -2,8 +2,6 @@ package com.steelthorn.android.av;
 
 import java.util.List;
 
-import com.steelthorn.android.av.kd.IMultiPoint;
-
 
 public interface IScanDefinitionGroup
 {
