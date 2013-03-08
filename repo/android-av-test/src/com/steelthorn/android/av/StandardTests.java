@@ -4,25 +4,28 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import android.test.AndroidTestCase;
-
-public class StandardTests extends AndroidTestCase
+public class StandardTests extends ScanTests
 {
+	private static final String TEST_PACKAGE = "com.example.android.softkeyboard";
+	//private static final String TEST_PACKAGE = "com.rdio.android.ui";
+	private static final String TEST_PACKAGE_PARTIAL = "com.example.android.soft";
+	//private static final String TEST_PACKAGE_PARTIAL = "com.rdio.android";
+	//private static final String TEST_PARTIAL_WEIGHT1 = "com.example";
+	//private static final String TEST_PARTIAL_WEIGHT1 = "com.rdio";
+	//private static final String TEST_PARTIAL_WEIGHT2 = "android.softkeyboard";
+	//private static final String TEST_PARTIAL_WEIGHT2 = "android.ui";
+
 	@Override
 	protected void setUp() throws Exception
 	{
-	    super.setUp();
-	    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
+		super.setUp();
+		Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 	}
 
 	@Test
@@ -74,9 +77,9 @@ public class StandardTests extends AndroidTestCase
 
 	@Test
 	public void testBasicScan() throws Exception
-	{		
+	{
 		final DebugScanListener listener = new DebugScanListener();
-		
+
 		Thread t = new Thread()
 		{
 			public void run()
@@ -84,8 +87,9 @@ public class StandardTests extends AndroidTestCase
 				new ScanManager().performBasicScan(getContext(), listener);
 			}
 		};
-		
-		t.start(); t.join();
+
+		t.start();
+		t.join();
 
 		Assert.assertFalse(listener._lastResult.getMatchesFound());
 	}
@@ -95,7 +99,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -114,7 +118,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
 		criteria.setMatchPos(1);
 
 		boolean matchFound = false;
@@ -134,9 +138,9 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
 		//criteria.setMatchPos(criteria.getMatchPosition()-1);
-		criteria.setMatchSize(criteria.getMatchSize()-1);
+		criteria.setMatchSize(criteria.getMatchSize() - 1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -155,7 +159,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.softkeyboard");
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
 		criteria.setMatchSize(criteria.getMatchSize() + 1);
 
 		boolean matchFound = false;
@@ -175,7 +179,7 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.soft");
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -194,8 +198,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.soft");
-		criteria.setMatchSize(criteria.getMatchSize()+1);
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
+		criteria.setMatchSize(criteria.getMatchSize() + 1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -214,8 +218,8 @@ public class StandardTests extends AndroidTestCase
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup("com.example.android.soft");
-		criteria.setMatchSize(criteria.getMatchSize()-1);
+		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
+		criteria.setMatchSize(criteria.getMatchSize() - 1);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -228,153 +232,26 @@ public class StandardTests extends AndroidTestCase
 
 		Assert.assertFalse(matchFound);
 	}
-	
+
 	@Test
 	public void testScanCancel() throws Exception
 	{
 		final IScanListener listenMock = mock(IScanListener.class);
-		
-		final ScanEngine engine = ScanEngine.getDefaultScanEngine();		
-		
-		new Thread() {
+
+		final ScanEngine engine = ScanEngine.getDefaultScanEngine();
+
+		new Thread()
+		{
 			public void run()
 			{
 				engine.scan(new BasicScanContext(getContext(), listenMock), new DevDefinitionProvider());
 			}
 		}.start();
-		
+
 		engine.cancel();
-		
+
 		Thread.sleep(250);
-		
+
 		verify(listenMock).onScanCanceled(any(ScanResult.class));
-	}
-	
-	@Test
-	public void testPartialWeightMatch() throws Exception
-	{
-		DebugScanListener listener = new DebugScanListener();
-		
-		TestDefinition def1 = createDefGroup("com.example");
-		def1.setWeight(.5);
-		
-		TestDefinition def2 = createDefGroup("android.softkeyboard");
-		def2.setMatchPos(12);
-		def2.setWeight(.5);
-		
-		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
-		defArray.add(def1); defArray.add(def2);
-		
-		IScanDefinitionGroup group = new IScanDefinitionGroup()
-		{
-			
-			@Override
-			public List<IScanDefinition> getDefinitions()
-			{
-				return defArray;
-			}
-			
-			@Override
-			public byte getDefinitionType()
-			{
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-			
-			@Override
-			public int getDefinitionGroupId()
-			{
-				return 1;
-			}
-		};
-		
-		final List<IScanDefinitionGroup> defGroupArray = new ArrayList<IScanDefinitionGroup>();
-		defGroupArray.add(group);
-		
-		ScanEngine se = ScanEngine.getDefaultScanEngine();
-		
-		se.scan(new BasicScanContext(getContext(), listener), new IScanDefinitionProvider()
-		{
-			
-			@Override
-			public List<IScanDefinitionGroup> getDefinitions()
-			{
-				return defGroupArray;
-			}
-		});
-		
-		assertTrue(listener._lastResult.getMatchedTargets().get(0).getConfidence() == 1);
-	}
-	
-	@Test
-	public void testPartialWeightAnyMatch() throws Exception
-	{
-		DebugScanListener listener = new DebugScanListener();
-		
-		TestDefinition def1 = createDefGroup("com.example");
-		def1.setWeight(1);
-		
-		TestDefinition def2 = createDefGroup("android.softkeyboard");
-		def2.setMatchPos(12);
-		def2.setWeight(1);
-		
-		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
-		defArray.add(def1); defArray.add(def2);
-		
-		IScanDefinitionGroup group = new IScanDefinitionGroup()
-		{
-			
-			@Override
-			public List<IScanDefinition> getDefinitions()
-			{
-				return defArray;
-			}
-			
-			@Override
-			public byte getDefinitionType()
-			{
-				return DefinitionType.ANDROID_PACKAGE;
-			}
-			
-			@Override
-			public int getDefinitionGroupId()
-			{
-				return 1;
-			}
-		};
-		
-		final List<IScanDefinitionGroup> defGroupArray = new ArrayList<IScanDefinitionGroup>();
-		defGroupArray.add(group);
-		
-		ScanEngine se = ScanEngine.getDefaultScanEngine();
-		
-		se.scan(new BasicScanContext(getContext(), listener), new IScanDefinitionProvider()
-		{
-			
-			@Override
-			public List<IScanDefinitionGroup> getDefinitions()
-			{
-				return defGroupArray;
-			}
-		});
-		
-		assertTrue(listener._lastResult.getMatchedTargets().get(0).getConfidence() == 2);
-	}
-	
-	
-	private TestDefinition createDefGroup(final String packageName)
-	{
-		try
-		{
-			MessageDigest md = MessageDigest.getInstance("SHA-1");
-			md.update(packageName.getBytes());
-			return new TestDefinition(packageName, md.digest());
-		}
-		catch (NoSuchAlgorithmException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-		
-		
 	}
 }

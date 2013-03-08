@@ -1,11 +1,13 @@
 package com.steelthorn.android.av;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.os.Environment;
 
 class Util
 {
@@ -24,6 +26,38 @@ class Util
 		}
 
 		return nonSystemPackages;
+	}
+
+	public static List<File> getAllFiles(Context ctx)
+	{
+		String base = Environment.getExternalStorageDirectory().toString();
+		File baseFile = new File(base + "/external_sd");
+
+		File[] files = baseFile.listFiles();
+
+		List<File> result = new ArrayList<File>();
+
+		for (int i = 0; i < files.length; i++)
+		{
+			if (!files[i].isDirectory())
+				result.add(files[i]);
+		}
+
+		return result;
+	}
+
+	public static IScanDefinitionProvider getDevDefinitionProvider()
+	{
+		return new IScanDefinitionProvider()
+		{
+
+			@Override
+			public List<IScanDefinitionGroup> getDefinitions()
+			{
+				// TODO Auto-generated method stub
+				return Util.getDevDefinitions();
+			}
+		};
 	}
 
 	public static List<IScanDefinitionGroup> getDevDefinitions()
@@ -61,41 +95,41 @@ class Util
 			}
 
 		});
-		
+
 		IScanDefinitionGroup group = new IScanDefinitionGroup()
 		{
-			
+
 			public List<IScanDefinition> getDefinitions()
 			{
 				return def;
 			}
-			
+
 			public byte getDefinitionType()
 			{
 				// TODO Auto-generated method stub
 				return DefinitionType.ANDROID_PACKAGE;
 			}
-			
+
 			public int getDefinitionGroupId()
 			{
 				// TODO Auto-generated method stub
 				return 1;
 			}
 		};
-		
+
 		List<IScanDefinitionGroup> allDefs = new ArrayList<IScanDefinitionGroup>();
 		allDefs.add(group);
-		
+
 		return allDefs;
 	}
-	
+
 	public static byte[] truncateArray(byte[] original, int newLength)
 	{
 		byte[] smaller = new byte[newLength];
-		
+
 		for (int i = 0; i < newLength; i++)
 			smaller[i] = original[i];
-		
+
 		return smaller;
 	}
 }
@@ -104,4 +138,3 @@ class DefinitionType
 {
 	public static final byte ANDROID_PACKAGE = 1;
 }
-

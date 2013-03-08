@@ -2,7 +2,7 @@ package com.steelthorn.android.av;
 
 import android.util.Log;
 
-class DefaultScanEngine extends ScanEngine
+public class DefaultScanEngine extends ScanEngine
 {
 	private static final String TAG = "DefaultScanEngine";
 
@@ -43,7 +43,7 @@ class DefaultScanEngine extends ScanEngine
 
 				ctx.getListener().onTargetScanBegin(target);
 
-				ThreatInfo ti = scanTarget(target, provider);
+				IThreatInfo ti = scanTarget(target, provider);
 
 				progressCount++;
 
@@ -61,9 +61,9 @@ class DefaultScanEngine extends ScanEngine
 		return;
 	}
 
-	public ThreatInfo scanTarget(IScanTarget target, IScanDefinitionProvider provider)
+	public IThreatInfo scanTarget(IScanTarget target, IScanDefinitionProvider provider)
 	{
-		// O(n) scanning algorithm for now
+		// O(n^2) scanning algorithm for now
 		// TODO: BST engine based on size
 		//List<IScanDefinitionGroup> groups = Util.getDevDefinitions();
 
