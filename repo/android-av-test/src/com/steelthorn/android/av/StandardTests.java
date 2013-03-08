@@ -12,6 +12,8 @@ import junit.framework.Assert;
 
 import org.junit.Test;
 
+import com.steelthorn.android.av.kd.KdScanDefinitionGroup;
+
 public class StandardTests extends ScanTests
 {
 	//private static final String TEST_PACKAGE = "com.example.android.softkeyboard";
@@ -270,9 +272,9 @@ public class StandardTests extends ScanTests
 		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
 		defArray.add(def1); defArray.add(def2);
 		
-		IScanDefinitionGroup group = new KdScanDefinitionGroup()
+		IScanDefinitionGroup group = new KdScanDefinitionGroup(TEST_PARTIAL_WEIGHT1.length() <= TEST_PARTIAL_WEIGHT2.length() ? TEST_PARTIAL_WEIGHT1.length() : TEST_PARTIAL_WEIGHT2.length(),
+				TEST_PARTIAL_WEIGHT1.length() >= TEST_PARTIAL_WEIGHT2.length() ? TEST_PARTIAL_WEIGHT1.length() : TEST_PARTIAL_WEIGHT2.length())
 		{
-			
 			@Override
 			public List<IScanDefinition> getDefinitions()
 			{
@@ -325,7 +327,8 @@ public class StandardTests extends ScanTests
 		final ArrayList<IScanDefinition> defArray = new ArrayList<IScanDefinition>();
 		defArray.add(def1); defArray.add(def2);
 		
-		IScanDefinitionGroup group = new KdScanDefinitionGroup()
+		IScanDefinitionGroup group = new KdScanDefinitionGroup(TEST_PARTIAL_WEIGHT1.length() <= TEST_PARTIAL_WEIGHT2.length() ? TEST_PARTIAL_WEIGHT1.length() : TEST_PARTIAL_WEIGHT2.length(),
+				TEST_PARTIAL_WEIGHT1.length() >= TEST_PARTIAL_WEIGHT2.length() ? TEST_PARTIAL_WEIGHT1.length() : TEST_PARTIAL_WEIGHT2.length())
 		{
 			
 			@Override

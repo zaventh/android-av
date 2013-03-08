@@ -5,10 +5,12 @@ import java.util.List;
 
 import org.junit.Test;
 
-import algs.model.IMultiPoint;
-import algs.model.kdtree.KDFactory;
-import algs.model.kdtree.KDTree;
-import algs.model.nd.Hypercube;
+import com.steelthorn.android.av.kd.Hypercube;
+import com.steelthorn.android.av.kd.IMultiPoint;
+import com.steelthorn.android.av.kd.KDFactory;
+import com.steelthorn.android.av.kd.KDTree;
+import com.steelthorn.android.av.kd.KdScanEngine;
+
 
 public class KdTreeTests extends ScanTests
 {	
@@ -28,9 +30,8 @@ public class KdTreeTests extends ScanTests
 	{
 		DebugScanListener listener = new DebugScanListener();
 		
-		final List<IScanDefinitionGroup> defs = Util.getDevDefinitions();
+		IScanDefinitionProvider provider = Util.getDevDefinitionProvider();
 		
-		IScanDefinitionGroup[] arrDefs = new IScanDefinitionGroup[defs.size()];
 		
 		KDTree defTree = KDFactory.generate(defs.toArray(arrDefs));
 		

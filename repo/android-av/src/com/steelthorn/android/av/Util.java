@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.steelthorn.android.av.kd.KdScanDefinitionGroup;
+
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -45,6 +47,20 @@ class Util
 
 		return result;
 	}
+	
+	public static IScanDefinitionProvider getDevDefinitionProvider()
+	{
+		return new IScanDefinitionProvider()
+		{
+			
+			@Override
+			public List<IScanDefinitionGroup> getDefinitions()
+			{
+				// TODO Auto-generated method stub
+				return Util.getDevDefinitions();
+			}
+		};
+	}
 
 	public static List<IScanDefinitionGroup> getDevDefinitions()
 	{
@@ -82,7 +98,7 @@ class Util
 
 		});
 
-		IScanDefinitionGroup group = new KdScanDefinitionGroup()
+		IScanDefinitionGroup group = new KdScanDefinitionGroup(23,23)
 		{
 
 			public List<IScanDefinition> getDefinitions()

@@ -17,7 +17,7 @@ public class ScanResult
 		return (_matchedTargets != null && _matchedTargets.size() > 0);
 	}
 	
-	protected void addMatchFound(ThreatInfo target)
+	protected void addMatchFound(IThreatInfo target)
 	{
 		_matchedTargets.add(target);
 	}
