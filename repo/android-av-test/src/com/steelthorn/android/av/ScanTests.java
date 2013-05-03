@@ -14,13 +14,13 @@ abstract class ScanTests extends AndroidTestCase
 	    Thread.currentThread().setContextClassLoader(getClass().getClassLoader());
 	}
 	
-	protected TestDefinition createDefGroup(final String packageName)
+	protected DemoDefinition createDefGroup(final String packageName)
 	{
 		try
 		{
 			MessageDigest md = MessageDigest.getInstance("SHA-1");
 			md.update(packageName.getBytes());
-			return new TestDefinition(packageName, md.digest());
+			return new DemoDefinition(packageName, md.digest());
 		}
 		catch (NoSuchAlgorithmException e)
 		{

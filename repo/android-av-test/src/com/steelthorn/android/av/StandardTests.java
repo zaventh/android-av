@@ -99,7 +99,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -118,7 +118,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE);
 		criteria.setMatchPos(1);
 
 		boolean matchFound = false;
@@ -138,7 +138,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE);
 		//criteria.setMatchPos(criteria.getMatchPosition()-1);
 		criteria.setMatchSize(criteria.getMatchSize() - 1);
 
@@ -159,7 +159,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE);
 		criteria.setMatchSize(criteria.getMatchSize() + 1);
 
 		boolean matchFound = false;
@@ -179,7 +179,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
 
 		boolean matchFound = false;
 		for (IScanTarget t : source)
@@ -198,7 +198,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
 		criteria.setMatchSize(criteria.getMatchSize() + 1);
 
 		boolean matchFound = false;
@@ -218,7 +218,7 @@ public class StandardTests extends ScanTests
 	{
 		ITargetSource source = new InstalledTargetSource(getContext());
 
-		TestDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
+		DemoDefinition criteria = createDefGroup(TEST_PACKAGE_PARTIAL);
 		criteria.setMatchSize(criteria.getMatchSize() - 1);
 
 		boolean matchFound = false;

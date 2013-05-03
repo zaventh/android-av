@@ -26,7 +26,6 @@ class InstalledTargetSource extends ContextTargetSource<PackageInfo>
 	@Override
 	protected Iterator<PackageInfo> getInternalIterator()
 	{
-		
 		return getPackages().iterator();
 	}
 

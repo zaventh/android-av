@@ -1,6 +1,6 @@
 package com.steelthorn.android.av;
 
-public class TestDefinition implements IScanDefinition
+class DemoDefinition implements IScanDefinition
 {
 	private int _id;
 	private byte[] _hashValue;
@@ -8,7 +8,7 @@ public class TestDefinition implements IScanDefinition
 	private long _matchPos;
 	private double _weight = 1;
 	
-	public TestDefinition(String packageName, byte[] hash)
+	public DemoDefinition(String packageName, byte[] hash)
 	{
 		_id = packageName.hashCode();
 		_matchSize = packageName.getBytes().length;
